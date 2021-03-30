@@ -2,7 +2,7 @@
 SELECT * FROM podcast_episodes ORDER BY episode_date DESC;
 
 -- Question 1: Whats the total number of podcast episodes published for the Call Her Daddy Podcast?
-SELECT COUNT(*) FROM podcast_episodes WHERE podcast_name = "Call Her Daddy";
+SELECT COUNT(*) FROM podcast_episodes WHERE podcast_name = 'Call Her Daddy';
 
 -- Question 2: Which podcasts published the most episodes in February 2021?
 SELECT COUNT(*), podcast_name FROM podcast_episodes WHERE episode_date BETWEEN '2021-02-01' AND '2021-02-28' group by podcast_name order by count(*) desc limit 5;
@@ -12,5 +12,5 @@ SELECT podcast_name,
 		CASE
 			WHEN CAST((max(episode_date)-min(episode_date))/7 AS DECIMAL) = 0 THEN 0
 			ELSE Round(CAST(count(episode_guid) AS DECIMAL)/CAST((max(episode_date)-min(episode_date))/7 AS DECIMAL),2)
-		END duration
+		END weekly_average
 FROM podcast_episodes GROUP BY podcast_name;
